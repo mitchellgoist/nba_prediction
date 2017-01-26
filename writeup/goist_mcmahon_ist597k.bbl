@@ -1,0 +1,35 @@
+\begin{thebibliography}{1}
+
+\bibitem{breiman}
+Leo Breiman.
+\newblock Bias, variance, and arcing classifiers.
+\newblock 1996.
+
+\bibitem{hoerl}
+Arthur~E Hoerl and Robert~W Kennard.
+\newblock Ridge regression: Biased estimation for nonorthogonal problems.
+\newblock {\em Technometrics}, 12(1):55--67, 1970.
+
+\bibitem{mccallum}
+Andrew McCallum, Kamal Nigam, et~al.
+\newblock A comparison of event models for naive bayes text classification.
+\newblock In {\em AAAI-98 workshop on learning for text categorization}, volume
+  752, pages 41--48. Citeseer, 1998.
+
+\bibitem{ratsch}
+Gunnar R{\"a}tsch, Takashi Onoda, and Klaus~Robert M{\"u}ller.
+\newblock An improvement of adaboost to avoid overfitting.
+\newblock {\em Proc. of the Int. Conf. on Neural Information Processing}, 1998.
+
+\bibitem{suykens}
+Johan~AK Suykens and Joos Vandewalle.
+\newblock Least squares support vector machine classifiers.
+\newblock {\em Neural processing letters}, 9(3):293--300, 1999.
+
+\bibitem{tibshirani}
+Robert Tibshirani.
+\newblock Regression shrinkage and selection via the lasso.
+\newblock {\em Journal of the Royal Statistical Society. Series B
+  (Methodological)}, pages 267--288, 1996.
+
+\end{thebibliography}

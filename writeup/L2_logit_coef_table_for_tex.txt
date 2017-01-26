@@ -1,0 +1,37 @@
+%\usepackage{booktabs}
+
+\begin{table}[!htbp]
+\centering
+\caption{Largest Positive and Negative Coefficients (L2 Logistic Regression)}
+\label{L2logitcoefstab}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\multicol{2}{c}{\textbf{NEGATIVE}} &   \multicol{2}{c}{\textbf{POSITIVE}} \\ \midrule
+-0.6483  & opp\_elo\_pregame     & 0.8271   & elo\_forecast        \\
+-0.3473  & opp\_id\_GSW          & 0.3834   & opp\_id\_PHI         \\
+-0.327   & game\_location\_away  & 0.3481   & elo\_pregame         \\
+-0.3164  & opp\_prev\_avg\_pts   & 0.2765   & opp\_id\_BKN         \\
+-0.2827  & avg\_def\_rating      & 0.2313   & team\_id\_GSW        \\
+-0.268   & opp\_id\_SAS          & 0.2297   & opp\_id\_MIN         \\
+-0.2224  & team\_id\_PHI         & 0.2247   & starters\_avg\_pie   \\
+-0.2163  & opp\_id\_TOR          & 0.2137   & starters\_max\_usg   \\
+-0.2031  & team\_id\_LAL         & 0.2075   & team\_id\_SAS        \\
+-0.1877  & team\_id\_PHX         & 0.1829   & p5\_starts\_count    \\
+-0.1811  & team\_id\_DEN         & 0.1821   & avg\_net\_rating     \\
+-0.1511  & tm\_conference\_E     & 0.1761   & opp\_id\_PHX         \\
+-0.1499  & opp\_id\_MIA          & 0.1755   & avg\_plus\_minus     \\
+-0.146   & opp\_id\_DET          & 0.1652   & team\_id\_CLE        \\
+-0.1454  & opp\_conference\_E    & 0.159    & game\_location\_home \\
+-0.1431  & team\_personal\_fouls & 0.1516   & opp\_id\_LAL         \\
+-0.142   & opp\_id\_LAC          & 0.15     & starters\_total\_pie \\
+-0.1282  & attendance            & 0.1456   & opp\_id\_SAC         \\
+-0.1095  & opp\_id\_CLE          & 0.1285   & opp\_id\_WAS         \\
+-0.1092  & team\_id\_ORL         & 0.1261   & team\_id\_TOR        \\
+-0.1081  & opp\_id\_OKC          & 0.125    & team\_id\_OKC        \\
+-0.1071  & team\_id\_NOP         & 0.1217   & opp\_id\_MEM         \\
+-0.1061  & team\_id\_NYK         & 0.1185   & team\_id\_MEM        \\
+-0.1047  & team\_id\_BKN         & 0.1177   & team\_id\_WAS        \\
+-0.1033  & team\_id\_MIL         & 0.1103   & team\_avg\_ast       \\
+-0.1033  & team\_id\_MIL         & 0.1103   & starter\_avg\_ast    \\ \bottomrule
+\end{tabular}
+\end{table}

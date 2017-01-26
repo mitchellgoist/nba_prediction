@@ -1,0 +1,185 @@
+## Author: Ryan McMahon (credit to Pablo Barbera - NYU/USC)
+## Date Created: 05/04/2016
+## Date Last Modified: 05/04/2016
+## File: "~/code/figures/01-classifier-performance-comparison-figures.R"
+## Purpose: 
+##         Visualize differences in NBA classifiers.
+
+## NOTES:
+##
+
+################################################################################
+rm(list=ls())
+gc()
+setwd("C:/Users/rbm166/Dropbox/IST597k/NBA/")
+set.seed(11769)
+library(ggplot2)
+library(scales)
+library(ggthemes)
+################################################################################
+
+####################
+## 538 Elo Method:
+####################
+
+### comparison of different classifiers - 538
+
+classifiers <- c("Logistic Reg. with L1 Penalty (Lasso)",
+                 "Bernoulli Naive Bayes", "Support Vector Machine (L1)", 
+                 "AdaBoost", "Random Forest")
+
+baseline <- 0.5
+
+
+accuracy <- c(0.700, 0.651, 0.682, 0.688, 0.665)
+sd.accuracy <- c(0.07, 0.10, 0.06, 0.06, 0.04)
+
+precision <- c(0.697, 0.652, 0.685, 0.682, 0.682)
+sd.precision <- c(0.09, 0.11, 0.09, 0.07, 0.07)
+
+
+## baseline precision
+x <- sample(c(0,1), 10000, prob=c(.5, .5), replace=TRUE)
+y <- sample(c(0,1), 10000, prob=c(.5, .5), replace=TRUE)
+tab <- table(x, y)
+base_precision <- tab["1","1"] / sum(tab["1","0"], tab["1","1"])
+
+
+## elo baseline data
+elo.acc <- 0.690
+elo.prec <- 0.685
+
+df <- data.frame(
+  classifier = factor(rep(classifiers, 2), levels=rev(classifiers)),
+  value = c(accuracy, precision),
+  sd = c(sd.accuracy, sd.precision),
+  metric = rep(c("Accuracy", "Precision"), each=length(classifiers)),
+  sample = rep(c("Cross-validated", 
+                 "Cross-validated"), each=length(classifiers)))
+
+
+base.df <- data.frame(
+  value = c(baseline, base_precision),
+  metric = c("Accuracy", "Precision"),
+  sample = c("Cross-validated", "Cross-validated")
+)
+
+elo.base <- data.frame(
+  value = c(elo.acc, elo.prec),
+  metric = c("Accuracy", "Precision"),
+  sample = c("Cross-validated", "Cross-validated")
+)
+
+p <- ggplot(df, aes(x=classifier, y=value, color=sample))
+pq <- p + 
+  geom_point(position = position_dodge(.5)) +
+  facet_wrap(~metric) +
+  coord_flip() +
+  scale_y_continuous(limits = c(0.45, 0.8)) + 
+  geom_linerange(aes(ymin=value-sd, ymax=value+sd),
+                 position=position_dodge(.5)) + 
+  geom_point(position = position_dodge(.5)) +
+  theme_bw() + 
+  theme(axis.title=element_blank()) +
+  geom_hline(aes(yintercept=value, color = "Raw Baseline"), base.df, 
+             alpha=.50, linetype="solid") + 
+  geom_hline(aes(yintercept=value, color = "Elo Baseline"), 
+             elo.base, linetype="dashed") +
+  scale_color_manual(name = "Metric", values=c("Cross-validated"="black", 
+                                               "Raw Baseline"="orangered1",
+                                               "Elo Baseline"="steelblue")) +
+  scale_linetype_manual(name="Metric", values = c("Cross-validated" = "solid", 
+                                                  "Elo Baseline" = "dotted", 
+                                                  "Raw Baseline" = "solid")) + 
+  scale_shape_manual(name = "Metric", values =  c("Cross-validated" = 21, 
+                                                  "Elo Baseline" = 0, 
+                                                  "Raw Baseline" = 0)) + 
+  theme(plot.margin=unit(c(0.75,0.75,0.75,0.75),"cm"))
+pq
+
+ggsave(pq, file="figures/01a-538-classifier-comparison.pdf", height=3, width=10)
+
+
+
+####################
+## No HC Elo Method:
+####################
+
+
+### comparison of different classifiers - 538
+
+classifiers <- c("Logistic Reg. with L1 Penalty (Lasso)",
+                 "Bernoulli Naive Bayes", "Support Vector Machine (L1)", 
+                 "AdaBoost", "Random Forest")
+
+baseline <- 0.5
+
+
+accuracy <- c(0.699, 0.646, 0.669, 0.684, 0.647)
+sd.accuracy <- c(0.07, 0.09, 0.06, 0.08, 0.02)
+
+precision <- c(0.695, 0.648, 0.675, 0.685, 0.685)
+sd.precision <- c(0.09, 0.10, 0.07, 0.09, 0.09)
+
+
+## baseline precision
+x <- sample(c(0,1), 10000, prob=c(.5, .5), replace=TRUE)
+y <- sample(c(0,1), 10000, prob=c(.5, .5), replace=TRUE)
+tab <- table(x, y)
+base_precision <- tab["1","1"] / sum(tab["1","0"], tab["1","1"])
+
+
+## elo baseline data
+elo.acc <- 0.684
+elo.prec <- 0.678
+
+df <- data.frame(
+  classifier = factor(rep(classifiers, 2), levels=rev(classifiers)),
+  value = c(accuracy, precision),
+  sd = c(sd.accuracy, sd.precision),
+  metric = rep(c("Accuracy", "Precision"), each=length(classifiers)),
+  sample = rep(c("Cross-validated", 
+                 "Cross-validated"), each=length(classifiers)))
+
+
+base.df <- data.frame(
+  value = c(baseline, base_precision),
+  metric = c("Accuracy", "Precision"),
+  sample = c("Cross-validated", "Cross-validated")
+)
+
+elo.base <- data.frame(
+  value = c(elo.acc, elo.prec),
+  metric = c("Accuracy", "Precision"),
+  sample = c("Cross-validated", "Cross-validated")
+)
+
+p <- ggplot(df, aes(x=classifier, y=value, color=sample))
+pq <- p + 
+  geom_point(position = position_dodge(.5)) +
+  facet_wrap(~metric) +
+  coord_flip() +
+  scale_y_continuous(limits = c(0.45, 0.8)) + 
+  geom_linerange(aes(ymin=value-sd, ymax=value+sd),
+                 position=position_dodge(.5)) + 
+  geom_point(position = position_dodge(.5)) +
+  theme_bw() + 
+  theme(axis.title=element_blank()) +
+  geom_hline(aes(yintercept=value, color = "Raw Baseline"), base.df, 
+             alpha=.50, linetype="solid") + 
+  geom_hline(aes(yintercept=value, color = "Elo Baseline"), 
+             elo.base, linetype="dashed") +
+  scale_color_manual(name = "Metric", values=c("Cross-validated"="black", 
+                                               "Raw Baseline"="orangered1",
+                                               "Elo Baseline"="steelblue")) +
+  scale_linetype_manual(name="Metric", values = c("Cross-validated" = "solid", 
+                                                  "Elo Baseline" = "dotted", 
+                                                  "Raw Baseline" = "solid")) + 
+  scale_shape_manual(name = "Metric", values =  c("Cross-validated" = 21, 
+                                                  "Elo Baseline" = 0, 
+                                                  "Raw Baseline" = 0)) + 
+  theme(plot.margin=unit(c(0.75,0.75,0.75,0.75),"cm"))
+pq
+
+ggsave(pq, file="figures/01b-no-hc-classifier-comparison.pdf", height=3, width=10)
+
